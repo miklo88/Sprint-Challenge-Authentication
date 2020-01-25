@@ -1,5 +1,7 @@
 // MIDDLEWARE
 const router = require("express").Router();
+
+const secrets = require("../config/secrets.js");
 // BRINGING IN JWT
 const jwt = require("jsonwebtoken");
 
