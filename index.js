@@ -7,3 +7,8 @@ if (!module.parent) {
     console.log(`\n=== Server listening on port ${PORT} ===\n`);
   });
 }
+
+// WHEN NOT TESTING.
+// server.listen(PORT, () => {
+//   console.log(`\n=== Server listening on port ${PORT} ===\n`);
+// });

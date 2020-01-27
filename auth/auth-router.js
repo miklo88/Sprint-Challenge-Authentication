@@ -1,17 +1,15 @@
-// MIDDLEWARE
 const router = require("express").Router();
 const usersModel = require("../users/usersModel");
 const generateToken = require("./generateToken");
-const bcrtypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
-// const secrets = require("../config/secrets.js");
-// // BRINGING IN JWT
-// const jwt = require("jsonwebtoken");
+const errorMessage = {
+  message: "Include a valid username in your request"
+};
 
 router.post("/register", async (req, res, next) => {
-  // implement registration
   try {
-    const user = user.body;
+    const user = req.body;
 
     if (!user || !user.username || !user.password) {
       return res.status(401).json(errorMessage);
@@ -26,10 +24,9 @@ router.post("/register", async (req, res, next) => {
 });
 
 router.post("/login", async (req, res, next) => {
-  // implement login
   try {
-    const { username, password } = res.body;
-    const user = await usersModelModel.findBy({ username }).first();
+    const { username, password } = req.body;
+    const user = await usersModel.findBy({ username }).first();
 
     const validPassword = await bcrypt.compare(password, user.password);
 
