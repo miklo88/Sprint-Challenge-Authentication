@@ -6,15 +6,18 @@ const jwt = require("jsonwebtoken");
 const secrets = require("../config/secrets");
 
 module.exports = (req, res, next) => {
-  return (req, res, next) => {
-    try {
-      const token = req.headers.authorization;
-      const decoded = jwt.verify(token, secrets.jwt);
+  const { authorization } = req.headers;
 
-      req.userId = decoded.subject;
-      next();
-    } catch (err) {
-      res.status(401).json({ you: "shall not pass!" });
-    }
-  };
+  if (authorization) {
+    jwt.verify(authorization, secrets.jwtSecret, function(err, decoded) {
+      if (err) {
+        res.status(401).json({ you: "shall not pass!" });
+      } else {
+        req.token = decoded;
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ message: "Please login and try again." });
+  }
 };
