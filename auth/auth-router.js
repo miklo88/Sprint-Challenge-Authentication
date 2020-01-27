@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const usersModel = require("../users/usersModel");
+const usersModel = require("../users/users-model");
 const generateToken = require("./generateToken");
 const bcrypt = require("bcryptjs");
 
+// PASSING AN errorMESSAGE SO I DON"T HAVE TO RE-WRITE IT.
 const errorMessage = {
-  message: "Include a valid username in your request"
+  message: "Include a valid username/password in your request"
 };
 
 router.post("/register", async (req, res, next) => {
